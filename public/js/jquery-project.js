@@ -1,36 +1,62 @@
 var btnSetItem = document.querySelector('.btnSetItem');
 var btnGetItem = document.querySelector('.btnGetItem');
+var btnClearData = document.querySelector('.btnClearData');
+
+function validateCheckbox() {
+    var messageModal = new bootstrap.Modal(document.getElementById('messageModal'), { backdrop: false });
+    messageModal.show();
+
+    var message;
+
+    if (!document.getElementById('gridCheck').checked) {
+        message = 'Para continuar com o precesso, favor concordar com os termos abaixo.';
+    } else {
+        message = 'Muito obrigado, o envio dos dados foi feito com sucesso!';
+    }
+    document.getElementById('messageModalContent').innerText = message;
+};
+
+function paramsLocalStorage() {
+    var params = [
+        id = document.getElementById('inputName').value,
+        email = document.getElementById('inputEmail').value,
+        password = document.getElementById('inputPassword').value,
+        adress = document.getElementById('inputAddress').value,
+        complement = document.getElementById('inputComplement').value,
+        city = document.getElementById('inputCity').value,
+        state = document.getElementById('inputState').value,
+        zip = document.getElementById('inputZip').value
+    ];
+
+    return params;
+};
 
 function setLocalStorage() {
 
-    var name = document.getElementById('inputName').value;
-    var email = document.getElementById('inputEmail').value;
-    var password = document.getElementById('inputPassword').value;
-    var adress = document.getElementById('inputAddress').value;
-    var complement = document.getElementById('inputComplement').value;
-    var city = document.getElementById('inputCity').value;
-    var state = document.getElementById('inputState').value;
-    var zip = document.getElementById('inputZip').value;
-    var checkbox = document.getElementById('gridCheck').value;
-
     btnSetItem.addEventListener('click', () => {
-        localStorage.setItem('name', name);
-        localStorage.setItem('email', email);
-        localStorage.setItem('password', password);
-        localStorage.setItem('adress', adress);
-        localStorage.setItem('complement', complement);
-        localStorage.setItem('city', city);
-        localStorage.setItem('state', state);
-        localStorage.setItem('zip', zip);
-        localStorage.setItem('checkbox', checkbox);
-    })
+        paramsLocalStorage();
+        validateCheckbox();
+
+        if (document.getElementById('gridCheck').checked) {
+            localStorage.setItem('Data', params[0]);
+        }
+    });
 };
 
 function getLocalStorage() {
     btnGetItem.addEventListener('click', () => {
-        console.log(localStorage.getItem('name'))
+        document.getElementById("dados").innerHTML = email;
+    })
+};
+
+function clearLocalStorage() {
+    btnClearData.addEventListener('click', () => {
+        if (localStorage) {
+            localStorage.clear()
+        }
     })
 };
 
 setLocalStorage();
 getLocalStorage();
+clearLocalStorage();
