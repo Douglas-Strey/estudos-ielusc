@@ -15,6 +15,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - Bootstrap
 - JS
 - Jquery
+- SweetAlert2
 
 ## 💻 Projeto
 

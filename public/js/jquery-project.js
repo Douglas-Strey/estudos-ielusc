@@ -3,21 +3,23 @@ var btnGetItem = document.querySelector(".btnGetItem");
 var btnClearData = document.querySelector(".btnClearData");
 
 function validateCheckbox() {
-  var messageModal = new bootstrap.Modal(
-    document.getElementById("messageModal"),
-    { backdrop: false }
-  );
-  messageModal.show();
-
-  var message;
-
-  if (!document.getElementById("gridCheck").checked) {
-    message =
-      "Para continuar com o precesso, favor concordar com os termos abaixo.";
-  } else {
-    message = "Muito obrigado, o envio dos dados foi feito com sucesso!";
-  }
-  document.getElementById("messageModalContent").innerText = message;
+  document.querySelector('.alert-confirm').onclick = function () {
+    if (!document.getElementById("gridCheck").checked) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Para continuar com a operação, é necessário concordar com os termos!',
+      })
+    } else {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Seus dados foram enviados com sucesso!',
+        showConfirmButton: true,
+      })
+    }
+  };
+  return;
 }
 
 // function paramsLocalStorage() {
@@ -65,7 +67,6 @@ function setLocalStorage() {
 }
 
 // function handleFormatData() {
-//   setLocalStorage();
 
 //   var nome = params[0];
 //   var userEmail = params[1];
@@ -80,29 +81,61 @@ function setLocalStorage() {
 // }
 
 function getLocalStorage() {
-  // Rever ests function amanhã com o Gian
+  // Rever esta function amanhã com o Gian
   // handleFormatData();
-  var nome = document.getElementById("inputName").value;
-
-  btnGetItem.addEventListener("click", () => {
-    document.getElementById("getElementsModalContent").innerText = nome;
-    document.getElementById("getElementsModalContent").innerText = userEmail;
-    document.getElementById("getElementsModalContent").innerText = senha;
-    document.getElementById("getElementsModalContent").innerText = endereco;
-    document.getElementById("getElementsModalContent").innerText = complemento;
-    document.getElementById("getElementsModalContent").innerText = cidade;
-    document.getElementById("getElementsModalContent").innerText = estado;
-    document.getElementById("getElementsModalContent").innerText = zipCode;
-  });
-}
+  document.querySelector('.btnGetItem').onclick = function () {
+    document.getElementById("getElementsModalContent1").innerText = localStorage.getItem("Nome");
+    document.getElementById("getElementsModalContent2").innerText = localStorage.getItem("E-mail");
+    document.getElementById("getElementsModalContent3").innerText = localStorage.getItem("Senha");
+    document.getElementById("getElementsModalContent4").innerText = localStorage.getItem("Endereço");
+    document.getElementById("getElementsModalContent5").innerText = localStorage.getItem("Complemento");
+    document.getElementById("getElementsModalContent6").innerText = localStorage.getItem("Cidade");
+    document.getElementById("getElementsModalContent7").innerText = localStorage.getItem("Estado");
+    document.getElementById("getElementsModalContent8").innerText = localStorage.getItem("Zip");
+  }
+};
 
 function clearLocalStorage() {
-  btnClearData.addEventListener("click", () => {
-    if (localStorage) {
-      localStorage.clear();
-    }
-  });
-}
+  document.querySelector('.btnClearData').onclick = function () {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: 'Você tem certeza?',
+      text: "Você não será capaz de desfazer essa operação!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sim, apague isso!',
+
+      cancelButtonText: 'Não, cancelar!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        swalWithBootstrapButtons.fire(
+          'Apagado!',
+          'Seus arquivos foram apagados com sucesso!',
+          'success'
+        )
+        if (localStorage) {
+          localStorage.clear();
+        }
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelado',
+          'Seus arquivos continuam seguros :)',
+          'error'
+        )
+      }
+    })
+  };
+};
 
 setLocalStorage();
 getLocalStorage();
