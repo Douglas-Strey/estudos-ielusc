@@ -22,24 +22,8 @@ function validateCheckbox() {
   return;
 }
 
-// function paramsLocalStorage() {
-//   var params = [
-//     (name = document.getElementById("inputName").value),
-//     (email = document.getElementById("inputEmail").value),
-//     (password = document.getElementById("inputPassword").value),
-//     (adress = document.getElementById("inputAddress").value),
-//     (complement = document.getElementById("inputComplement").value),
-//     (city = document.getElementById("inputCity").value),
-//     (state = document.getElementById("inputState").value),
-//     (zip = document.getElementById("inputZip").value),
-//   ];
-
-//   return params;
-// }
-
 function setLocalStorage() {
   btnSetItem.addEventListener("click", () => {
-    // paramsLocalStorage();
     validateCheckbox();
 
     var params = [
@@ -66,23 +50,7 @@ function setLocalStorage() {
   });
 }
 
-// function handleFormatData() {
-
-//   var nome = params[0];
-//   var userEmail = params[1];
-//   var senha = params[2];
-//   var endereco = params[3];
-//   var complemento = params[4];
-//   var cidade = params[5];
-//   var estado = params[6];
-//   var zipCode = params[7];
-
-//   return nome, userEmail, senha, endereco, complemento, cidade, estado, zipCode;
-// }
-
 function getLocalStorage() {
-  // Rever esta function amanhã com o Gian
-  // handleFormatData();
   document.querySelector('.btnGetItem').onclick = function () {
     document.getElementById("getElementsModalContent1").innerText = localStorage.getItem("Nome");
     document.getElementById("getElementsModalContent2").innerText = localStorage.getItem("E-mail");
@@ -99,7 +67,7 @@ function clearLocalStorage() {
   document.querySelector('.btnClearData').onclick = function () {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn btn-success',
+        confirmButton: 'btn btn-success popUpMargin',
         cancelButton: 'btn btn-danger'
       },
       buttonsStyling: false
@@ -111,7 +79,6 @@ function clearLocalStorage() {
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sim, apague isso!',
-
       cancelButtonText: 'Não, cancelar!',
       reverseButtons: true
     }).then((result) => {
