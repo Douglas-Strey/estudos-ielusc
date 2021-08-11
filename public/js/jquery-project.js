@@ -22,22 +22,36 @@ function validateCheckbox() {
   return;
 }
 
+function catchData() {
+  var params = [
+    nome,
+    email,
+    senha,
+    endereco,
+    complemento,
+    cidade,
+    estado,
+    zip
+  ]
+
+  nome = $("#inputName").val();
+  email = $("#inputEmail").val();
+  senha = $("#inputPassword").val();
+  endereco = $("#inputAddress").val();
+  complemento = $("#inputComplement").val();
+  cidade = $("#inputCity").val();
+  estado = $("inputState").val();
+  zip = $("inputZip").val();
+
+  return params;
+}
+
 function setLocalStorage() {
   btnSetItem.addEventListener("click", () => {
     validateCheckbox();
 
-    var params = [
-      (fullName = document.getElementById("inputName").value),
-      (email = document.getElementById("inputEmail").value),
-      (password = document.getElementById("inputPassword").value),
-      (adress = document.getElementById("inputAddress").value),
-      (complement = document.getElementById("inputComplement").value),
-      (city = document.getElementById("inputCity").value),
-      (state = document.getElementById("inputState").value),
-      (zip = document.getElementById("inputZip").value),
-    ];
-
     if (document.getElementById("gridCheck").checked) {
+      catchData();
       localStorage.setItem("Nome", params[0]);
       localStorage.setItem("E-mail", params[1]);
       localStorage.setItem("Senha", params[2]);
