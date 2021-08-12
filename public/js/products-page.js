@@ -1,9 +1,7 @@
-function maskInput() {
-    $("#productPrice").keypress(function () {
-        $(this).mask('R$ #.##0,00', { reverse: true });
+$(document).ready(function () {
+    $("#productPrice").maskMoney({
+        prefix: "R$ ",
+        decimal: ",",
+        thousands: "."
     });
-
-    return;
-}
-
-maskInput();
+});
