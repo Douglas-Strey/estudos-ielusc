@@ -3,7 +3,6 @@
 <p align="center">
  <img src="./assets/EdiStore.png" alt="template"  width="600px"/>
 </p>
-
 -->
 
 ## 🚀 Tecnologias
