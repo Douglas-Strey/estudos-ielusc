@@ -1,5 +1,5 @@
 <?php
-include '../templates/header.php';
+include '../templates/headSecond.php';
 ?>
 
 <body>
