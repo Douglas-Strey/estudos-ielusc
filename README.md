@@ -16,6 +16,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - JS
 - Jquery
 - SweetAlert2
+- PHP
 
 ## 💻 Projeto
 
