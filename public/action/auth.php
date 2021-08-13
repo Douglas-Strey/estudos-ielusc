@@ -17,7 +17,7 @@ include '../templates/headSecond.php';
             <form action="../pages/productsPage.php" method="post">
                 <input type="text" id="login" class="fadeIn second" name="login" placeholder="Usu&aacute;rio">
                 <input type="password" id="password" class="fadeIn third" name="password" placeholder="Senha">
-                <input type="submit" class="fadeIn fourth" value="Entrar">
+                <input type="submit" class="fadeIn fourth signupToast" value="Entrar">
             </form>
 
             <div id="formFooter">
@@ -28,7 +28,9 @@ include '../templates/headSecond.php';
     </div>
 
     <script src="../assets/libs/jquery/jquery.min.js"></script>
-    <script src=../assets/libs/bootstrap/js/bootstrap.bundle.min.js></script>
+    <script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 <?php
 include '../templates/footer.php';

@@ -9,6 +9,9 @@ include '../templates/headSecond.php';
     $dataPassword = $_POST['password'];
     $dataLogin = $_POST['login'];
 
+    var_dump($dataLogin);
+    var_dump($dataPassword);
+
     ?>
 
     <div class="wrapper fadeInDown">
@@ -28,7 +31,7 @@ include '../templates/headSecond.php';
             </form>
 
             <div id="formFooter">
-                <a class="underlineHover" href="#">Visualizar produtos cadastrados</a>
+                <a class="underlineHover" href="../database/dataBase.php">Visualizar produtos cadastrados</a>
             </div>
 
         </div>
@@ -36,6 +39,7 @@ include '../templates/headSecond.php';
 
     <script src="../assets/libs/jquery/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src=../assets/libs/bootstrap/js/bootstrap.bundle.min.js></script>
     <script src="../js/products-page.js"></script>
 </body>
