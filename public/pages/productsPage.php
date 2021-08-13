@@ -23,6 +23,7 @@ include '../templates/headSecond.php';
                 <input type="text" id="productName" class="fadeIn second" name="productName" placeholder="Nome do produto">
                 <input type="text" id="productDescription" class="fadeIn second" name="productDescription" placeholder="Descri&ccedil;&atilde;o do produto">
                 <input type="text" id="productPrice" class="fadeIn second" name="productPrice" placeholder="Pre&ccedil;o do produto">
+                <input type="file" id="productImg" class="fadeIn second" name="productImg" placeholder="Imagem do produto">
                 <input type="submit" class="fadeIn fourth" value="Enviar">
             </form>
 
