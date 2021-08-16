@@ -1,31 +1,32 @@
-<?php
-include '../templates/headSecond.php';
-?>
-
-<body>
+<pre>
     <?php
-    include '../templates/navBar.php';
-    ?>
 
-    <pre>
-    <?php
+    include '../database/conexao.php';
 
     $produto = $_POST;
 
-    $produtoNome = $produto['productName'];
-    $produtoDescricao = $produto['productDescription'];
-    $produtoPreco = $produto['productPrice'];
-    $produtoImg = $produto['productImg'];
+    if ($produto) {
+        $produtoNome = $produto['productName'];
+        $produtoDescricao = $produto['productDescription'];
+        $row = $produto['productPrice'];
+        $produtoPreco = floatval($row);
+        $produtoImg = $_FILES['productImg']['tmp_name'];
 
+        // pegar imagem e converter pra base64
+        if ($produtoImg) {
+            $produtoImgBase64 = base64_encode(file_get_contents($produtoImg));
+        } else {
+            $produtoImgBase64 = 0;
+        }
+    }
+
+    $sql = "INSERT INTO produtos (nome, descricao, preco, img) 
+            VALUES ('$produtoNome', '$produtoDescricao', '$produtoPreco', '$produtoImgBase64')";
+
+    if (!$mysqli->query($sql)) :
+        echo $mysqli->error;
+    endif;
+
+    $mysqli->close();
     ?>
-    </pre>
-
-    <script src="../assets/libs/jquery/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
-    <script src=../assets/libs/bootstrap/js/bootstrap.bundle.min.js></script>
-    <script src="../js/products-page.js"></script>
-</body>
-
-<?php
-include '../templates/footer.php';
-?>
+</pre>

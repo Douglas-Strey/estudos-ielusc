@@ -1,8 +1,16 @@
+<pre>
 <?php
 
-$servidor = "localhost";
-$usuario = "root";
-$senha = "";
-$dbname = "produtos";
+$user = "root";
+$password = "!Douglas2002";
+$database = "cadastro";
+$hostname = "localhost";
 
-$connection = mysqli_connect($servidor, $usuario, $senha, $dbname);
+$mysqli = new mysqli($hostname, $user, $password, $database) or die(' Erro na conexão ');
+
+if ($mysqli->connect_errno) {
+    exit("Falha ao conectar ao MySQL: " . $mysqli->connect_error);
+}
+
+?>
+</pre>
