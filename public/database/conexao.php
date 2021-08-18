@@ -1,4 +1,3 @@
-<pre>
 <?php
 
 $user = "root";
@@ -11,6 +10,3 @@ $mysqli = new mysqli($hostname, $user, $password, $database) or die(' Erro na co
 if ($mysqli->connect_errno) {
     exit("Falha ao conectar ao MySQL: " . $mysqli->connect_error);
 }
-
-?>
-</pre>

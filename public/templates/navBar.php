@@ -41,3 +41,9 @@
         </div>
     </div>
 </nav>
+
+<?php
+
+if (isset($_SESSION['flash_message'])) :
+    echo getFlash();
+endif;

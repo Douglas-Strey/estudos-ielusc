@@ -11,6 +11,5 @@
     <link rel="stylesheet" href="../style/global.css" />
     <link rel="stylesheet" href="../style/custom.css" />
 
-
     <title>IELUSC Projects</title>
 </head>

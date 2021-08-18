@@ -14,66 +14,69 @@ include '../templates/headSecond.php';
     $produto = $_POST;
 
     if ($produto) {
-        $produtoNome = $produto['productName'];
-        $produtoDescricao = $produto['productDescription'];
-        $row = $produto['productPrice'];
+        if ($produto['productName']) {
+            $produtoNome = $produto['productName'];
+        } else {
+            $produtoNome = 0;
+        }
+
+        if ($produto['productDescription']) {
+            $produtoDescricao = $produto['productDescription'];
+        } else {
+            $produtoDescricao = 0;
+        }
+        if ($produto['productPrice']) {
+            $row = $produto['productPrice'];
+        } else {
+            $row = 0;
+        }
+
         $produtoPreco = floatval($row);
         $produtoImg = $_FILES['productImg']['tmp_name'];
 
-        // pegar imagem e converter pra base64
         if ($produtoImg) {
-            $produtoImgBase64 = base64_encode(file_get_contents($produtoImg));
+            $produtoImgFile = base64_encode(file_get_contents($produtoImg));
         } else {
-            $produtoImgBase64 = 0;
+            $produtoImgFile = null;
         }
     }
 
     $sql = "INSERT INTO produtos (nome, descricao, preco, img) 
-            VALUES ('$produtoNome', '$produtoDescricao', '$produtoPreco', '$produtoImgBase64')";
+            VALUES ('$produtoNome', '$produtoDescricao', '$produtoPreco', '$produtoImgFile')";
 
     if (!$mysqli->query($sql)) :
         echo $mysqli->error;
     endif;
 
-    $mysqli->close();
     ?>
     </pre>
 
     <?php
 
-    $query = $mysqli->query("SELECT nome, id, descricao, preco, img FROM produtos");
+    $sql = "SELECT nome, id, descricao, preco, img FROM produtos";
+    $result = $mysqli->query($sql) or die(' Erro na requisição ');
 
-    // executa a query
-    $dados = mysqli_query($mysqli, $query) or die(' Erro na requisição ');
-
-    // transforma os dados em um array
-    $linha = mysqli_fetch_assoc($dados);
-
-    // calcula quantos dados retornaram
-    $total = mysqli_num_rows($dados);
-
-    // se o número de resultados for maior que zero, mostra os dados
-    if ($total > 0) {
-        // inicia o loop que vai mostrar todos os dados
-        do {
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
     ?>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="card w-100">
                     <div class="card-header bg-blue">
-                        <h4 class="mb-0 text-white fs-1 fw-bold"><?= $linha['nome'] ?></h4>
+                        <h4 class="mb-0 text-white fs-1 fw-bold"><?= $row['nome'] ?></h4>
                     </div>
                     <div class="card-body">
-                        <span><?= $linha['descricao'] ?></span>
-                        <span><?= $linha['preco'] ?></span>
-                        <img src="<?= base64_decode($linha['img']) ?>" alt="">
+                        <span><?= $row['descricao'] ?></span><br />
+                        <span>R$ <?= $row['preco'] ?></span><br />
+                        <img src="data:image/png;base64,<?= $row['img'] ?>" alt="" style="width:400px">
                     </div>
                 </div>
             </div>
     <?php
-            // finaliza o loop que vai mostrar os dados
-        } while ($linha = mysqli_fetch_assoc($dados));
-        // fim do if
+        }
+    } else {
+        echo "0 results";
     }
+    $mysqli->close();
     ?>
 
 

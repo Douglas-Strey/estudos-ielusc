@@ -5,9 +5,17 @@ include '../templates/headSecond.php';
 <body>
     <?php
     include '../templates/navBar.php';
+    include '../database/conexao.php';
+    require '../hooks/functions.php';
 
-    $dataPassword = $_POST['password'];
-    $dataLogin = $_POST['login'];
+    if (isset($_POST['newLogin'])) :
+        $usuario = $_POST['newLogin'];
+        $hash = encript($usuario, $password);
+        $query = "INSERT INTO usuarios (login, hash) VALUES (?, ?)";
+        $data = $mysqli->prepare($query);
+        $data->bind_param("ss", $usuario, $hash);
+        $data->execute();
+    endif;
 
     ?>
 
