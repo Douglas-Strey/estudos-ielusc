@@ -2,7 +2,7 @@
 include '../templates/headSecond.php';
 include '../database/conexao.php';
 require '../hooks/functions.php';
-include '../helper/flashMessage/flash.php';
+include_once '../helper/flashMessage/flash.php';
 
 if (isset($_POST['formAuth'])) :
 
@@ -16,20 +16,17 @@ if (isset($_POST['formAuth'])) :
 
     if (verifyPassword($usuario, $hash)) :
         header('Location: /pages/productsPage.php');
-    else :
-        flash("my_first_flash_message", "This is my first flash message!", "alert");
+    elseif (!verifyPassword($usuario, $hash)) :
+        setFlash(array("Usuário e/ou senha incorreto!", "alertCustomClass"));
     endif;
 
 endif;
-
-flash("my_first_flash_message", "This is my first flash message!", "alert");
-var_dump($_SESSION);
 
 ?>
 
 <body>
     <?php
-    include '../templates/navBar.php';
+    include '../templates/navBarAuth.php';
     ?>
 
     <div class="wrapper fadeInDown">
@@ -40,8 +37,8 @@ var_dump($_SESSION);
             </div>
 
             <form action="" method="post">
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="Usu&aacute;rio">
-                <input type="password" id="password" class="fadeIn third" name="password" placeholder="Senha">
+                <input type="text" id="login" class="fadeIn second" name="login" autocomplete="off" placeholder="Usu&aacute;rio">
+                <input type="password" id="password" class="fadeIn third" name="password" autocomplete="off" placeholder="Senha">
                 <input type="submit" name="formAuth" class="fadeIn fourth signupToast" value="Entrar">
             </form>
 

@@ -1,37 +1,24 @@
 <?php
 
+session_start();
 
-
-function flash($name = "", $message = "", $class = "alert alert-success")
+function setFlash(array $flash)
 {
-    if (!empty($name) && !empty($message) && !empty($class)) {
-        if (!empty($_SESSION[$name])) {
-            unset($_SESSION[$name]);
-        }
-        if (!empty($_SESSION[$name . "_class"])) {
-            unset($_SESSION[$name . "_class"]);
-        }
-        $_SESSION[$name] = $message;
-        $_SESSION[$name . "_class"] = $class;
-    } elseif (empty($message) && empty($class) && !empty($name) && !empty($_SESSION[$name])) {
-        echo '<div class="' . $_SESSION[$name . "_class"] . '" id="msg-flash">' . $_SESSION[$name] . '</div>';
-        unset($_SESSION[$name]);
-        unset($_SESSION[$name . "_class"]);
-    }
-}
+    $_SESSION['flash_message'] = $flash[0];
+    $_SESSION['class'] = $flash[1];
 
-
-function setFlash($mensagem = "", $classe = "")
-{
-    session_start();
-
-    $_SESSION[$mensagem];
-    $_SESSION[$classe];
-
-    return $_SESSION;
+    return;
 }
 
 function getFlash()
 {
-    return '<div class="' . $_SESSION[$classe] . '">' . $_SESSION[$mensagem] . '</div>';
+    return "<div class='" . $_SESSION['class'] . "'> " . $_SESSION['flash_message'] . "</div>";
+}
+
+function destroyFlash()
+{
+    unset($_SESSION['flash_message']);
+    unset($_SESSION['class']);
+
+    return;
 }

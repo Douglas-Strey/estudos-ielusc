@@ -44,8 +44,7 @@ include '../templates/headSecond.php';
     </div>
 
     <script src="../assets/libs/jquery/jquery.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src=../assets/libs/bootstrap/js/bootstrap.bundle.min.js></script>
     <script src="../js/products-page.js"></script>
 </body>

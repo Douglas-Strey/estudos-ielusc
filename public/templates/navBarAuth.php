@@ -41,3 +41,15 @@
         </div>
     </div>
 </nav>
+
+<?php
+
+include_once '../helper/flashMessage/flash.php';
+
+if (isset($_SESSION['flash_message'])) :
+    echo getFlash();
+endif;
+
+destroyFlash();
+
+?>
