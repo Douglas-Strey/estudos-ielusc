@@ -1,0 +1,1 @@
+/* object.addEventListener("submit", header('Location: /pages/productsPage.php')); */
