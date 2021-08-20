@@ -37,7 +37,7 @@ include '../templates/headSecond.php';
             </form>
 
             <div id="formFooter">
-                <a class="underlineHover" href="../database/dataBase.php">Visualizar produtos cadastrados</a>
+                <a class="underlineHover" href="../pages/productsData.php">Visualizar produtos cadastrados</a>
             </div>
 
         </div>

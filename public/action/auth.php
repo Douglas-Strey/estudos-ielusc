@@ -7,17 +7,21 @@ include_once '../helper/flashMessage/flash.php';
 if (isset($_POST['formAuth'])) :
 
     $usuario = $_POST['login'];
-    $query = "SELECT hash FROM usuarios WHERE login = ?";
-    $data = $mysqli->prepare($query);
-    $data->bind_param("s", $usuario);
-    $data->execute();
-    $data->bind_result($hash);
-    $data->fetch();
+    $senha = $_POST['password'];
 
-    if (verifyPassword($usuario, $hash)) :
+    if ($result = $mysqli->prepare("SELECT hash FROM usuarios WHERE login => ?")) :
+        $result->bind_param('s', $usuario);
+        $result->execute();
+        $result->bind_result($hash, $userLogin);
+        var_dump($hash);
+        while ($result->fetch()) {
+        }
+    endif;
+
+    if (verifyPassword($senha, $hash)) :
         header('Location: /pages/productsPage.php');
-    elseif (!verifyPassword($usuario, $hash)) :
-        setFlash(array("Usuário e/ou senha incorreto!", "alertCustomClass"));
+    else :
+        setFlash(array("Usuário e/ou senha incorreto!", "alert alertCustomClass"));
     endif;
 
 endif;

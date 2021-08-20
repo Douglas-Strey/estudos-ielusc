@@ -1,7 +1,1 @@
-$(document).ready(function () {
-    $("#productPrice").maskMoney({
-        prefix: "R$ ",
-        decimal: ",",
-        thousands: "."
-    });
-});
+/* object.addEventListener("submit", header('Location: /pages/productsPage.php')); */

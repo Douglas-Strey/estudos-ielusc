@@ -50,6 +50,6 @@ if (isset($_SESSION['flash_message'])) :
     echo getFlash();
 endif;
 
-destroyFlash();
+
 
 ?>

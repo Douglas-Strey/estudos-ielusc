@@ -6,30 +6,19 @@ include '../templates/headSecond.php';
     <?php
     include '../templates/navBar.php';
     ?>
-    <pre>
     <?php
 
     include '../database/conexao.php';
 
     $produto = $_POST;
 
-    if ($produto) {
-        if ($produto['productName']) {
-            $produtoNome = $produto['productName'];
-        } else {
-            $produtoNome = 0;
-        }
+    if ($produto != 0) {
+        header('Location: /pages/productsPage.php');
+        $produtoNome = $produto['productName'];
 
-        if ($produto['productDescription']) {
-            $produtoDescricao = $produto['productDescription'];
-        } else {
-            $produtoDescricao = 0;
-        }
-        if ($produto['productPrice']) {
-            $row = $produto['productPrice'];
-        } else {
-            $row = 0;
-        }
+        $produtoDescricao = $produto['productDescription'];
+
+        $row = $produto['productPrice'];
 
         $produtoPreco = floatval($row);
         $produtoImg = $_FILES['productImg']['tmp_name'];
@@ -49,7 +38,6 @@ include '../templates/headSecond.php';
     endif;
 
     ?>
-    </pre>
 
     <?php
 
@@ -67,7 +55,7 @@ include '../templates/headSecond.php';
                     <div class="card-body">
                         <span><?= $row['descricao'] ?></span><br />
                         <span>R$ <?= $row['preco'] ?></span><br />
-                        <img src="data:image/png;base64,<?= $row['img'] ?>" alt="" style="width:400px">
+                        <img src="data:image/png;base64,<?= $row['img'] ?>" alt="" style="width:300px">
                     </div>
                 </div>
             </div>

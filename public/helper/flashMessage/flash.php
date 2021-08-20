@@ -12,13 +12,19 @@ function setFlash(array $flash)
 
 function getFlash()
 {
-    return "<div class='" . $_SESSION['class'] . "'> " . $_SESSION['flash_message'] . "</div>";
+    $data = array(
+        'class' => $_SESSION['class'],
+        'flash_message' => $_SESSION['flash_message']
+    );
+    destroyFlash();
+    return "<div class='" . $data['class'] . "'> " . $data['flash_message'] . "
+    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+    </div>
+    ";
 }
 
 function destroyFlash()
 {
     unset($_SESSION['flash_message']);
     unset($_SESSION['class']);
-
-    return;
 }
