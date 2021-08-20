@@ -19,8 +19,7 @@ function getFlash()
     destroyFlash();
     return "<div class='" . $data['class'] . "'> " . $data['flash_message'] . "
     <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-    </div>
-    ";
+    </div>";
 }
 
 function destroyFlash()

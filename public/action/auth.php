@@ -5,24 +5,23 @@ require '../hooks/functions.php';
 include_once '../helper/flashMessage/flash.php';
 
 if (isset($_POST['formAuth'])) :
-
     $usuario = $_POST['login'];
-    $senha = $_POST['password'];
+    $password = $_POST['password'];
 
-    if ($result = $mysqli->prepare("SELECT hash FROM usuarios WHERE login => ?")) :
-        $result->bind_param('s', $usuario);
-        $result->execute();
-        $result->bind_result($hash, $userLogin);
-        var_dump($hash);
-        while ($result->fetch()) {
-        }
-    endif;
+    $result = $mysqli->query("SELECT login AND hash FROM usuarios") or die("erro ao selecionar");
+    $row = $result->fetch_assoc();
 
-    if (verifyPassword($senha, $hash)) :
-        header('Location: /pages/productsPage.php');
+    if ($row != 0) :
+        $hash = $row['hash'];
     else :
-        setFlash(array("Usuário e/ou senha incorreto!", "alert alertCustomClass"));
+        $hash = 0;
     endif;
+
+    if (verifyPassword($password, $hash)) {
+        header("Location: /pages/productsPage.php");
+    } else {
+        setFlash(array("Usuário e/ou senha incorreto!", "alert alertCustomClass"));
+    }
 
 endif;
 
