@@ -74,4 +74,3 @@ include '../templates/headSecond.php';
 </body>
 <?php
 include '../templates/footer.php';
-?>

@@ -59,6 +59,6 @@ endif;
     <script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../js/auth.js"></script>
 </body>
+
 <?php
 include '../templates/footer.php';
-?>
