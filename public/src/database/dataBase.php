@@ -1,19 +1,19 @@
 <?php
-include '../templates/headSecond.php';
+include '../src/templates/headSecond.php';
 ?>
 
 <body>
     <?php
-    include '../templates/navBar.php';
+    include '../src/templates/navBar.php';
     ?>
     <?php
 
-    include '../database/conexao.php';
+    include '../src/database/conexao.php';
 
     $produto = $_POST;
 
     if ($produto != 0) {
-        header('Location: /pages/productsPage.php');
+        header('Location: /src/pages/productsPage.php');
         $produtoNome = $produto['productName'];
 
         $produtoDescricao = $produto['productDescription'];
@@ -68,9 +68,9 @@ include '../templates/headSecond.php';
     ?>
 
 
-    <script src="../assets/libs/jquery/jquery.min.js"></script>
-    <script src=../assets/libs/bootstrap/js/bootstrap.bundle.min.js></script>
-    <script src="../js/products-page.js"></script>
+    <script src="../src/assets/libs/jquery/jquery.min.js"></script>
+    <script src=../src/assets/libs/bootstrap/js/bootstrap.bundle.min.js></script>
+    <script src="../src/js/products-page.js"></script>
 </body>
 <?php
-include '../templates/footer.php';
+include '../src/templates/footer.php';
