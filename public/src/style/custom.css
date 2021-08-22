@@ -6,7 +6,7 @@ body {
 }
 
 a {
-    color: #92badd;
+    color: #65aae6;
     display: inline-block;
     text-decoration: none;
     font-weight: 400;
@@ -125,16 +125,12 @@ input[type=text], input[type=password], input[type=file] {
     border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus, 
-input[type=password]:focus,
-input[type=file]:focus {
+input[type=text]:focus, input[type=password]:focus, input[type=file]:focus {
     background-color: #fff;
     border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]:placeholder, 
-input[type=password]:placeholder, 
-input[type=file]:placeholder {
+input[type=text]:placeholder, input[type=password]:placeholder, input[type=file]:placeholder {
     color: #cccccc;
 }
 
@@ -297,4 +293,29 @@ input[type=file]:placeholder {
     background-color: #d1e7dd;
     border-color: #badbcc;
 }
-  
+
+.dangerCustomClass {
+    position: relative;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    text-align: center;
+    width: 100%;
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+}
+
+.infoCustomClass {
+    position: relative;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    text-align: center;
+    width: 100%;
+    color: #055160;
+    background-color: #cff4fc;
+    border-color: #b6effb;
+}

@@ -1,35 +1,18 @@
 <?php
 include '../templates/headSecond.php';
-include '../database/conexao.php';
-require '../hooks/functions.php';
 include_once '../helper/flashMessage/flash.php';
 
-if (isset($_POST['formAuth'])) :
-    $usuario = $_POST['login'];
-    $password = $_POST['password'];
-
-    $result = $mysqli->query("SELECT login AND hash FROM usuarios") or die("erro ao selecionar");
-    $row = $result->fetch_assoc();
-
-    if ($row != 0) :
-        $hash = $row['hash'];
-    else :
-        $hash = 0;
-    endif;
-
-    if (verifyPassword($password, $hash)) {
-        header("Location: /pages/productsPage.php");
-    } else {
-        setFlash(array("Usuário e/ou senha incorreto!", "alert alertCustomClass"));
-    }
-
-endif;
-
+session_start();
 ?>
 
 <body>
     <?php
     include '../templates/navBarAuth.php';
+
+    if (isset($_SESSION['flash_message'])) :
+        getFlash();
+        destroyFlash();
+    endif;
     ?>
 
     <div class="wrapper fadeInDown">
@@ -39,10 +22,10 @@ endif;
                 <img src="../assets/img/icon-website.png" id="icon" alt="User Icon" />
             </div>
 
-            <form action="" method="post">
-                <input type="text" id="login" class="fadeIn second" name="login" autocomplete="off" placeholder="Usu&aacute;rio">
-                <input type="password" id="password" class="fadeIn third" name="password" autocomplete="off" placeholder="Senha">
-                <input type="submit" name="formAuth" class="fadeIn fourth signupToast" value="Entrar">
+            <form action="../auth/validateLogin.php" method="post">
+                <input type="text" id="userLogin" class="fadeIn second" name="userLogin" autocomplete="off" placeholder="Usu&aacute;rio">
+                <input type="password" id="userPassword" class="fadeIn third" name="userPassword" autocomplete="off" placeholder="Senha">
+                <input type="submit" name="btnLogin" class="fadeIn fourth signupToast" value="Entrar">
             </form>
 
             <div id="formFooter">

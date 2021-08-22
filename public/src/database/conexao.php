@@ -2,7 +2,7 @@
 
 $user = "root";
 $password = "!Douglas2002";
-$database = "cadastro";
+$database = "datastorage";
 $hostname = "localhost";
 
 $mysqli = new mysqli($hostname, $user, $password, $database) or die(' Erro na conexão ');

@@ -1,5 +1,7 @@
 <?php
 include '../templates/headSecond.php';
+
+session_start();
 ?>
 
 <body>
@@ -17,6 +19,7 @@ include '../templates/headSecond.php';
         $data->execute();
     endif;
 
+    checkLogin();
     ?>
 
     <div class="wrapper fadeInDown">
@@ -25,6 +28,7 @@ include '../templates/headSecond.php';
             <div class="fadeIn first">
                 <img src="../assets/img/icon-website.png" id="icon" alt="User Icon" />
                 <span>Cadastro de produto</span>
+                <a class="underlineHover ms-5" href="../auth/sair.php">Sair</a>
             </div>
 
             <form enctype="multipart/form-data" action="../database/dataBase.php" method="post">
