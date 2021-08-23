@@ -20,6 +20,13 @@ function redirectRegisterPage(array $params)
     header("Location: ../action/createAuth.php");
 }
 
+function redirectProductData(array $params)
+{
+    setFlash([$params[0], $params[1]]);
+
+    header("Location: ../pages/productsData.php");
+}
+
 function checkLogin()
 {
     if (!empty($_SESSION['id'])) :
