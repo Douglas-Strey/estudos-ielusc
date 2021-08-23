@@ -3,6 +3,7 @@ include '../templates/headSecond.php';
 include_once '../helper/flashMessage/flash.php';
 include '../database/conexao.php';
 include '../hooks/functions.php';
+
 session_start();
 ?>
 
@@ -21,7 +22,7 @@ session_start();
             while ($row = $result->fetch_assoc()) {
                 setFlash(["Consulta realizada com sucesso!", "successCustomClass"]);
                 getFlash();
-                destroyFlash();
+
         ?>
                 <div class="col-lg-4">
                     <div class="card w-100">
@@ -40,10 +41,8 @@ session_start();
         } else {
             setFlash(["Nenhum produto cadastrado", "alertCustomClass"]);
             getFlash();
-            destroyFlash();
         }
         $mysqli->close();
-
         ?>
     </div>
     <div class="mt-5 ms-3">
