@@ -15,7 +15,7 @@
 ### 🏷 Tela de cadastro de produto
 
 <p align="center">
- <img src="./public/src/assets/.github/registerProductScreen.png" alt="template"  width="600px"/>
+ <img src="./public/src/assets/.github/registerProduct.png" alt="template"  width="600px"/>
 </p>
 
 
