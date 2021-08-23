@@ -23,8 +23,8 @@ session_start();
             </div>
 
             <form action="../auth/validateLogin.php" method="post">
-                <input type="text" id="userLogin" class="fadeIn second" name="userLogin" autocomplete="off" placeholder="Usu&aacute;rio">
-                <input type="password" id="userPassword" class="fadeIn third" name="userPassword" autocomplete="off" placeholder="Senha">
+                <input type="text" id="userLogin" class="fadeIn second" name="userLogin" autocomplete="off" placeholder="Usu&aacute;rio" required>
+                <input type="password" id="userPassword" class="fadeIn third" name="userPassword" autocomplete="off" placeholder="Senha" required>
                 <input type="submit" name="btnLogin" class="fadeIn fourth signupToast" value="Entrar">
             </form>
 

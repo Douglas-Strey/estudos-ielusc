@@ -12,7 +12,7 @@ include '../src/templates/headSecond.php';
 
     $produto = $_POST;
 
-    if ($produto != 0) {
+    if (!empty($produto)) :
         header('Location: /src/pages/productsPage.php');
         $produtoNome = $produto['productName'];
 
@@ -28,7 +28,7 @@ include '../src/templates/headSecond.php';
         } else {
             $produtoImgFile = null;
         }
-    }
+    endif;
 
     $sql = "INSERT INTO produtos (nome, descricao, preco, img) 
             VALUES ('$produtoNome', '$produtoDescricao', '$produtoPreco', '$produtoImgFile')";

@@ -10,15 +10,6 @@ session_start();
     include '../database/conexao.php';
     require '../hooks/functions.php';
 
-    if (isset($_POST['newLogin'])) :
-        $usuario = $_POST['newLogin'];
-        $hash = encript($usuario, $password);
-        $query = "INSERT INTO usuarios (login, hash) VALUES (?, ?)";
-        $data = $mysqli->prepare($query);
-        $data->bind_param("ss", $usuario, $hash);
-        $data->execute();
-    endif;
-
     checkLogin();
     ?>
 
@@ -32,9 +23,9 @@ session_start();
             </div>
 
             <form enctype="multipart/form-data" action="../database/dataBase.php" method="post">
-                <input type="text" id="productName" class="fadeIn second" name="productName" placeholder="Nome do produto">
-                <input type="text" id="productDescription" class="fadeIn second" name="productDescription" placeholder="Descri&ccedil;&atilde;o do produto">
-                <input type="text" id="productPrice" class="fadeIn second" name="productPrice" placeholder="Pre&ccedil;o do produto">
+                <input type="text" id="productName" class="fadeIn second" name="productName" placeholder="Nome do produto" required>
+                <input type="text" id="productDescription" class="fadeIn second" name="productDescription" placeholder="Descri&ccedil;&atilde;o do produto" required>
+                <input type="text" id="productPrice" class="fadeIn second" name="productPrice" placeholder="Pre&ccedil;o do produto" required>
                 <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
                 <input type="file" id="productImg" class="fadeIn second" name="productImg" placeholder="Imagem do produto">
                 <input type="submit" class="fadeIn fourth" value="Enviar">

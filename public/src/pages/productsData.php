@@ -2,11 +2,15 @@
 include '../templates/headSecond.php';
 include_once '../helper/flashMessage/flash.php';
 include '../database/conexao.php';
+include '../hooks/functions.php';
+session_start();
 ?>
 
 <body>
     <?php
     include '../templates/navBarAuth.php';
+
+    checkLoginData();
     ?>
     <div class="row m-0">
         <?php
@@ -14,8 +18,10 @@ include '../database/conexao.php';
         $result = $mysqli->query($sql) or die(' Erro na requisição ');
 
         if ($result->num_rows > 0) {
-            setFlash(["Consulta realizada com sucesso!", "alert successCustomClass"]);
             while ($row = $result->fetch_assoc()) {
+                setFlash(["Consulta realizada com sucesso!", "successCustomClass"]);
+                getFlash();
+                destroyFlash();
         ?>
                 <div class="col-lg-4">
                     <div class="card w-100">
@@ -32,7 +38,9 @@ include '../database/conexao.php';
         <?php
             }
         } else {
-            setFlash(["Nenhum produto cadastrado", "alert alertCustomClass"]);
+            setFlash(["Nenhum produto cadastrado", "alertCustomClass"]);
+            getFlash();
+            destroyFlash();
         }
         $mysqli->close();
 

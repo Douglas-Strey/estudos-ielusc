@@ -10,11 +10,6 @@ function setFlash(array $flash)
 
 function getFlash()
 {
-    /* $data = array(
-        'flash_message' => $_SESSION['flash_message'],
-        'class' => $_SESSION['class'],
-    ); */
-
     return "<div class='alert " . $_SESSION['class'] . "'> " . $_SESSION['flash_message'] . "
     <button type='button' class='btn-close align-middle' data-bs-dismiss='alert' aria-label='Close'></button>
     </div>";

@@ -15,10 +15,12 @@ include '../templates/headSecond.php';
                 <span>Cadastro de usuário</span>
             </div>
 
-            <form action="../pages/productsPage.php" method="post">
-                <input type="text" id="newLogin" class="fadeIn second" name="newLogin" placeholder="Usu&aacute;rio">
-                <input type="password" id="newPassword" class="fadeIn third" name="newPassword" placeholder="Senha">
-                <input type="submit" class="fadeIn fourth signupToast" value="Cadastrar">
+            <form action="../auth/validateRegister.php" method="post">
+                <input type="text" id="newUserName" class="fadeIn second" name="newUserName" placeholder="Nome Completo" required>
+                <input type="text" id="newUserLogin" class="fadeIn second" name="newUserLogin" placeholder="Usu&aacute;rio" required>
+                <input type="text" id="newUserEmail" class="fadeIn second" name="newUserEmail" placeholder="E-mail" required>
+                <input type="password" id="newPassword" class="fadeIn third" name="newPassword" placeholder="Senha" required>
+                <input type="submit" name="btnRegister" class="fadeIn fourth signupToast" value="Cadastrar">
             </form>
 
             <div id="formFooter">
