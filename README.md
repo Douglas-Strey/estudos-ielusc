@@ -1,9 +1,23 @@
-<!--- 
+## 🚀 Prints da aplicação
+
+### 🔐 Tela de login
 
 <p align="center">
- <img src="./assets/EdiStore.png" alt="template"  width="600px"/>
+ <img src="./public/src/assets/.github/loginScreen.png" alt="template"  width="600px"/>
 </p>
--->
+
+### 📝 Tela de cadastro
+
+<p align="center">
+ <img src="./public/src/assets/.github/registerScreen.png" alt="template"  width="600px"/>
+</p>
+
+### 🏷 Tela de cadastro de produto
+
+<p align="center">
+ <img src="./public/src/assets/.github/registerProductScreen.png" alt="template"  width="600px"/>
+</p>
+
 
 ## 🚀 Tecnologias
 
