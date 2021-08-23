@@ -8,6 +8,7 @@ include '..templates/header.php';
   ?>
   <div class="container">
     <br />
+    
     <div class="main-title mb-5">
       <h2 class="text-secondary mb-5">Olá</h2>
       <p class="text-center">Me chamo Douglas Strey e trabalho como estagiário de desenvolvimento no IELUSC</p>
