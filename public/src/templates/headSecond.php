@@ -11,5 +11,9 @@
     <link rel="stylesheet" href="../style/global.css" />
     <link rel="stylesheet" href="../style/custom.css" />
 
+
+    <script src="../assets/libs/jquery/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+
     <title>IELUSC Projects</title>
 </head>

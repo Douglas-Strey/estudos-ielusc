@@ -1,1 +1,3 @@
-/* object.addEventListener("submit", header('Location: /pages/productsPage.php')); */
+/* $(document).ready(function () {
+    $('#productPrice').maskMoney();
+}); */

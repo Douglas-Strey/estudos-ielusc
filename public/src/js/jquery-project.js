@@ -22,44 +22,34 @@ function validateCheckbox() {
   return;
 }
 
-function catchData() {
+/* function catchData() {
   var params = [
-    nome,
-    email,
-    senha,
-    endereco,
-    complemento,
-    cidade,
-    estado,
-    zip
-  ]
-
-  nome = $("#inputName").val();
-  email = $("#inputEmail").val();
-  senha = $("#inputPassword").val();
-  endereco = $("#inputAddress").val();
-  complemento = $("#inputComplement").val();
-  cidade = $("#inputCity").val();
-  estado = $("inputState").val();
-  zip = $("inputZip").val();
+    nome = ,
+    email = ,
+    senha = ,
+    endereco = ,
+    complemento = ,
+    cidade = ,
+    estado = ,
+    zip = ,
+  ];
 
   return params;
-}
+} */
 
 function setLocalStorage() {
   btnSetItem.addEventListener("click", () => {
     validateCheckbox();
 
     if (document.getElementById("gridCheck").checked) {
-      catchData();
-      localStorage.setItem("Nome", params[0]);
-      localStorage.setItem("E-mail", params[1]);
-      localStorage.setItem("Senha", params[2]);
-      localStorage.setItem("Endereço", params[3]);
-      localStorage.setItem("Complemento", params[4]);
-      localStorage.setItem("Cidade", params[5]);
-      localStorage.setItem("Estado", params[6]);
-      localStorage.setItem("Zip", params[7]);
+      localStorage.setItem("Nome", $("#inputName").val());
+      localStorage.setItem("E-mail", $("#inputEmail").val());
+      localStorage.setItem("Senha", $("#inputPassword").val());
+      localStorage.setItem("Endereço", $("#inputAddress").val());
+      localStorage.setItem("Complemento", $("#inputComplement").val());
+      localStorage.setItem("Cidade", $("#inputCity").val());
+      localStorage.setItem("Estado", $("#inputState").val());
+      localStorage.setItem("Zip", $("#inputZip").val());
     }
   });
 }

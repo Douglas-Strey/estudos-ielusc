@@ -22,13 +22,13 @@ session_start();
                 <a class="underlineHover ms-5" href="../auth/sair.php">Sair</a>
             </div>
 
-            <form enctype="multipart/form-data" action="../database/dataBase.php" method="post">
+            <form enctype="multipart/form-data" action="../database/dataBase.php" method="POST">
                 <input type="text" id="productName" class="fadeIn second" name="productName" placeholder="Nome do produto" required>
                 <input type="text" id="productDescription" class="fadeIn second" name="productDescription" placeholder="Descri&ccedil;&atilde;o do produto" required>
                 <input type="text" id="productPrice" class="fadeIn second" name="productPrice" placeholder="Pre&ccedil;o do produto" required>
                 <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
                 <input type="file" id="productImg" class="fadeIn second" name="productImg" placeholder="Imagem do produto">
-                <input type="submit" class="fadeIn fourth" value="Enviar">
+                <input type="submit" class="fadeIn fourth submitForm" value="Enviar">
             </form>
 
             <div id="formFooter">
@@ -38,7 +38,6 @@ session_start();
         </div>
     </div>
 
-    <script src="../assets/libs/jquery/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src=../assets/libs/bootstrap/js/bootstrap.bundle.min.js></script>
     <script src="../js/products-page.js"></script>

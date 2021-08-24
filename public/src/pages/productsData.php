@@ -30,16 +30,16 @@ session_start();
                             <h4 class="mb-0 text-white fs-3 fw-bold"><?= $row['nome'] ?></h4>
                         </div>
                         <div class="card-body">
-                            <span><?= $row['descricao'] ?></span><br />
-                            <span>R$ <?= $row['preco'] ?></span><br />
-                            <img src="data:image/png;base64,<?= $row['img'] ?>" alt="" style="width:300px"> <br>
-                            <span><a class="btn btn-danger mt-2" href="../database/deleteProduct.php?produto_id='<?= $row['produto_id'] ?>'">
-                                    Apagar
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                                    </svg>
-                                </a></span>
+                            <span class="fs-5 fw-normal"><?= $row['descricao'] ?></span><br />
+                            <span class="fs-5 fw-normal">R$ <?= $row['preco'] ?></span><br />
+                            <img class=".img-fluid" src="data:image/png;base64,<?= $row['img'] ?>" alt="" style="width:300px"> <br>
+                            <span><button><a class="btn btn-danger mt-2" href="../database/deleteProduct.php?produto_id='<?= $row['produto_id'] ?>'">
+                                        Apagar
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                        </svg>
+                                    </a></button></span>
                         </div>
                     </div>
                 </div>
