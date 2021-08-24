@@ -33,7 +33,7 @@ session_start();
                             <span class="fs-5 fw-normal"><?= $row['descricao'] ?></span><br />
                             <span class="fs-5 fw-normal">R$ <?= $row['preco'] ?></span><br />
                             <img class=".img-fluid" src="data:image/png;base64,<?= $row['img'] ?>" alt="" style="width:300px"> <br>
-                            <span><button><a class="btn btn-danger mt-2" href="../database/deleteProduct.php?produto_id='<?= $row['produto_id'] ?>'">
+                            <span><button class="border-0 btn btn-danger mt-2"><a class="text-white" href="../database/deleteProduct.php?produto_id='<?= $row['produto_id'] ?>'">
                                         Apagar
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
