@@ -1,0 +1,432 @@
+/**
+ * @package dash.js 
+ * @author Gianluca Pettenon <gianluca.pettenon@ielusc.br>
+ * @author Douglas Strey <douglas.strey@ielusc.br>
+ **/
+
+$(document).ready(function() {
+
+    const Communication = {
+
+        isBirthDay: function() {
+
+            if (User.birth == Server.date) {
+
+                if (!Cookies.Get('BJ-BIRTHDAY')) {
+                    Cookies.Set('BJ-BIRTHDAY', '1');
+                    showBalloon();
+                    $("#modalBirthday").modal('show');
+                }
+
+            }
+
+        },
+
+        getWeather: function() {
+
+            var params = {
+                'url': '/admin/comunicacao/previsao-do-tempo',
+            };
+
+            var meses = [
+                "Janeiro",
+                "Fevereiro",
+                "Março",
+                "Abril",
+                "Maio",
+                "Junho",
+                "Julho",
+                "Agosto",
+                "Setembro",
+                "Outubro",
+                "Novembro",
+                "Dezembro"
+            ];
+
+            var dias = ["Domingo", "Segunda-feira", "Terça-feira",
+                "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"
+            ]
+
+            function formatarData(str) {
+                var partes = str.split('/').map(Number);
+                var dataGeral = new Date('20' + partes[2], partes[1] - 1, partes[0]);
+                var diaSemana = dias[dataGeral.getDay() % 7];
+                var mes = meses[dataGeral.getMonth()];
+                return [diaSemana + ', ' + dataGeral.getDate() + ' de ' + mes].join(' ');
+            }
+
+            $.ajax({
+                url: params.url,
+                method: "POST",
+                success: function(data) {
+                    $dataApi = data.data.results;
+                    $dataStorage = JSON.stringify($dataApi);
+
+                    localStorage.setItem('WeatherDataStorage', $dataStorage);
+
+                    var response = '';
+
+                    if (localStorage.getItem('WeatherDataStorage')) {
+                        var WeatherData = JSON.parse(localStorage.getItem('WeatherDataStorage'));
+                        var dataHoje = WeatherData.date;
+
+                        response += "<h4 class='card-title text-blue'>" + WeatherData.city + "</h4>";
+                        response += "<h5 class='fw-light text-blue'>" + formatarData(dataHoje) + "</h5>";
+                        response += "<div class='mt-4'>";
+
+                        switch (WeatherData.condition_slug) {
+
+                            case 'cloudly_night':
+                                response += "<span class='display-5 text-blue'><i class='wi wi-night-cloudy-high'></i></span>";
+                                break;
+                            case 'storm':
+                                response += "<span class='display-5 text-blue'><i class='wi wi-storm-showers'></i></span>";
+                                break;
+                            case 'hail':
+                                response += "<span class='display-5 text-blue'><i class='wi wi-hail'></i></span>";
+                                break;
+                            case 'rain':
+                                response += "<span class='display-5 text-blue'><i class='wi wi-rain'></i></span>";
+                                break;
+                            case 'fog':
+                                response += "<span class='display-5 text-blue'><i class='wi wi-fog'></i></span>";
+                                break;
+                            case 'clear_day':
+                                response += "<span class='display-5 text-warning'><i class='wi wi-day-sunny'></i></span>";
+                                break;
+                            case 'clear_night':
+                                response += "<span class='display-5 text-blue'><i class='wi wi-night-clear'></i></span>";
+                                break;
+                            case 'cloud':
+                                response += "<span class='display-5 text-blue'><i class='wi wi-cloud'></i></span>";
+                                break;
+                            case 'cloudly_day':
+                                response += "<span class='display-5 text-warning'><i class='wi wi-day-cloudy-high'></i></span>";
+                                break;
+                            case 'cloudly_night':
+                                response += "<span class='display-5 text-blue'><i class='wi wi-night-cloudy-high'></i></span>";
+                                break;
+                            case 'none_day':
+                                response += "<span class='display-5 text-warning'><i class='wi wi-day-sunny'></i></span>";
+                                break;
+                            case 'none_night':
+                                response += "<span class='display-5 text-blue'><i class='wi wi-night-clear'></i></span>";
+                                break;
+                        }
+
+                        response += "<div class='d-inline-block ms-3 align-top'>";
+
+                        response += "<h2 class='text-blue temp-config'> " + WeatherData.temp + " °C</h2>";
+
+                        response += "</div>";
+                        response += "</div>";
+
+                        $('#contentWeather').append(response);
+                    }
+                },
+            });
+
+        },
+
+        getEmployee: function() {
+
+            var params = {
+                "CODSENTENCA": "Intranet.ZMD.004",
+                "CODCOLIGADA": "1",
+                "CODSISTEMA": "S",
+            };
+
+            $.ajax({
+                url: "/ws/rm/consulta-sql",
+                method: "POST",
+                data: params,
+                success: function(data) {
+                    if (data) {
+
+                        var data = Serialize.Result(data);
+                        var response = "";
+
+                        for (var i = 0; i < data.length; i++) {
+
+                            response += "<div class='carousel-item'>";
+
+                            response += "<div class='row'>";
+
+                            response += "<div class='col-lg-4'>";
+
+                            if (data[i].IMAGEM) {
+                                response += "<img class='img-thumbnail rounded mx-auto d-block' width='100' src='data:image/png;base64," + data[i].IMAGEM + "'>";
+                            } else {
+                                response += "<img class='img-thumbnail rounded mx-auto d-block' width='100' src='/assets/intranet/img/avatar.jpg'" + data[i].IMAGEM + "'>";
+                            }
+
+                            response += "</div>";
+
+                            response += "<div class='col-lg-8 pt-4 text-center'>";
+                            response += "<span class='text-blue fw-bold'>" + data[i].NOME + "</span><br>";
+                            response += "<span>" + data[i].FUNCAO + "</span>";
+                            response += "</div>";
+
+                            response += "</div>";
+
+                            response += "</div>";
+                        }
+
+                        $('.carousel-func').append(response);
+                        $('.carousel-item').first().addClass('active');
+                        $("#carouselEmployee").carousel();
+
+                    }
+                }
+            });
+
+        },
+
+        getAlert: function() {
+
+            $.ajax({
+                type: "POST",
+                url: "/servicos-globais/aviso/list",
+                success: function(data) {
+
+                    if (data) {
+
+                        var response = "";
+
+                        var data = data.data;
+                        for (var i = 0; i < data.length; i++) {
+
+                            response += "<div class='carousel-item carousel-oracoes-item'>";
+
+                            response += "<div class='row'>";
+
+                            if (data[i].TITULO) {
+                                response += "<span class='titulo'>" + data[i].TITULO + "</span><br>";
+                            }
+                            response += "<div class='mensagem'>" + data[i].MENSAGEM + "</div><br>";
+
+                            if (data[i].AUTOR) {
+                                response += "<span class='autor'>" + data[i].AUTOR + "</span>";
+                            }
+
+                            response += "</div>";
+
+                            response += "</div>";
+                        }
+
+                        $('#carousel-oracoes').append(response);
+                        $('.carousel-oracoes-item').first().addClass('active');
+                        $("#carouselOracoes").carousel();
+                    }
+                },
+            });
+
+        }
+    };
+
+    $("#anivMessage").ckeditor();
+
+    Communication.getEmployee();
+    Communication.getAlert();
+    Communication.getWeather();
+    Communication.isBirthDay();
+
+
+    var tblAniver = $("#tblAniver").DataTable({
+        ajax: {
+            type: "POST",
+            url: "/ws/rm/consulta-sql",
+            dataType: "json",
+            data: {
+                "CODSENTENCA": "Intranet.ZMD.001",
+                "CODCOLIGADA": "1",
+                "CODSISTEMA": "S",
+            },
+            dataSrc: function(data) {
+                if (data) {
+                    return Serialize.Result(data);
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                console.log(xhr);
+                console.log("ERRO: " + thrownError);
+            }
+        },
+        columnDefs: [{
+            "targets": [1, 2],
+            "className": "text-center"
+        }],
+        columns: [{
+                title: "ANIVERSARIANTES DA SEMANA",
+                data: "NOME",
+                defaultContent: "",
+                render: function(data, type, row) {
+                    var html = "";
+
+                    html += row["NOME"];
+                    html += "<br/>";
+                    html += row["FUNCAO"];
+
+                    return html;
+                }
+            }, {
+                title: "DATA",
+                data: "DTNASCIMENTO",
+                defaultContent: "",
+                render: function(data, type, row) {
+
+                    if (data == Server.date) {
+                        return "<span class='fw-bold'>" + data + "</span>";
+                    } else {
+                        return data;
+                    }
+                }
+            },
+            {
+                title: "PARABENIZAR",
+                data: "DTNASCIMENTO",
+                defaultContent: "",
+                render: function(data, type, row) {
+                    var btnEdit = "";
+
+                    if (data == Server.date) {
+                        btnEdit += "<a href='javascript:void(0)' class='btn btn-sm btn-outline-info border-0 openUserNiver' rel='bj-tooltip' data-placement='bottom' title='Enviar Felicita&ccedil;&otilde;es'>";
+                        btnEdit += "<i class='mdi mdi-cake'></i>";
+                        btnEdit += "</a>";
+                    }
+
+                    return btnEdit;
+                }
+            },
+        ],
+        bFilter: false,
+        responsive: true,
+        bInfo: false,
+        bLengthChange: false,
+        ordering: false,
+        pageLength: 6,
+        language: Language.DataTable
+    });
+
+    $("#tblAniver tbody").off("click", ".openUserNiver").on("click", ".openUserNiver", function() {
+
+        var data = tblAniver.row($(this).closest("tr")).data();
+
+        $("#ModalAniver .modal-header > .modal-title").empty();
+        $("#ModalAniver .modal-header > .modal-title").html("Parabenize <strong>" + data['NOME'] + "</strong>");
+
+        $('#ModalAniver').modal('show');
+
+        $("#btnSubmitMail").off("click").on("click", function() {
+
+            if ($("#anivMessage").val() == "" || $("#anivMessage").val() == null) {
+                Message.Toast({ 'message': 'Preencha o campo mensagem.', 'class': 'warning' });
+                return false;
+            }
+
+            if (data && !data['EMAIL']) {
+                Message.Toast({ 'message': 'E-mail do aniversariante em branco.', 'class': 'warning' });
+                return false;
+            }
+
+            $("#btnSubmitMail").prop("disabled", true);
+
+            $.ajax({
+                url: '/admin/enviar-email',
+                type: 'POST',
+                data: {
+                    'nome': data['NOME'],
+                    'destinatario': data['EMAIL'],
+                    'mensagem': $("#anivMessage").val(),
+                },
+                success: function(data) {
+                    if (data) {
+                        Message.Toast({ 'message': data.message, 'class': data.class });
+                    }
+
+                    $('#ModalAniver').modal('hide');
+                    tblAniver.ajax.reload();
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr);
+                },
+            });
+
+            $("#anivMessage").val("");
+            $("#btnSubmitMail").prop("disabled", false);
+        });
+
+    });
+
+    $('#tblPort').DataTable({
+        ajax: {
+            type: "POST",
+            url: "/servicos-globais/documentos-institucionais/list/active",
+            dataType: "json",
+            dataSrc: function(data) {
+                if (data) {
+                    return data.data;
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                console.log(xhr);
+            }
+        },
+        columnDefs: [{
+            "targets": [1],
+            "className": "text-center"
+        }],
+
+        columns: [{
+            title: "DOCUMENTOS INSTITUCIONAIS",
+            data: "TITULO",
+            defaultContent: "",
+            render: function(data, type, row) {
+
+                var content = "";
+                content += "<td>";
+
+                if (row['TITULO'] && row['TITULO'] != '') {
+                    content += row['TITULO'];
+                }
+
+                if (row['TITULO'] && row['TITULO'] != '' && row['DESCRICAO'] && row['DESCRICAO'] != '') {
+                    content += ' - ';
+                }
+
+                if (row['DESCRICAO'] && row['DESCRICAO'] != '') {
+                    content += row['DESCRICAO'];
+                }
+
+                content += "</td>";
+                return content;
+            }
+        }, {
+            title: "ARQUIVO",
+            data: "LINK",
+            defaultContent: "",
+            render: function(data, type, row) {
+                var content = "";
+
+                if (row['TARGET']) {
+                    content += "<a class='btn btn-sm btn-outline-warning border-0 tooltipPort' data-placement='bottom' title='Visualizar' target='_blank' href=' " + row['LINK'] + "'>";
+                    content += "<i class=\"mdi mdi-file\"></i>";
+                    content += "</a>";
+                } else {
+                    content += "<a class='btn btn-sm btn-outline-warning border-0 tooltipPort' data-placement='bottom' title='Visualizar' href=' " + row['LINK'] + "' download>";
+                    content += "<i class=\"mdi mdi-file\"></i>";
+                    content += "</a>";
+                }
+
+                return content;
+            }
+        }],
+        bFilter: false,
+        bInfo: false,
+        bLengthChange: false,
+        ordering: false,
+        pageLength: 6,
+        language: Language.DataTable
+    });
+
+});

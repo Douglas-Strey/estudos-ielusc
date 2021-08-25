@@ -1,0 +1,53 @@
+#tblAviso thead tr, table.dataTable tfoot tr {
+    box-shadow: none;
+    background-color: #fff;
+    color: #FFFFFF;
+}
+
+.titulo {
+    font-size: 15px;
+    margin-top: 10px;
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+    color: #074883;
+}
+
+.descricao {
+    font-size: 13px;
+    margin-top: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+mensagem {
+    font-size: 17px;
+    margin-top: 5px;
+    text-align: center;
+    width: 100%;
+}
+
+.autor {
+    font-size: 14px;
+    margin-top: 15px;
+    text-align: right;
+    width: 100%;
+    color: #074883;
+    font-weight: 400;
+}
+
+.temp-config {
+    margin-top: 15px;
+}
+
+/* Media query para os carroséis */
+
+@media screen and (max-width: 435px) {
+    #carousel-funcionarios {
+        height: 220px;
+    }
+
+    #carousel-Oracoes-formatter {
+        height: 150px;
+    }
+}

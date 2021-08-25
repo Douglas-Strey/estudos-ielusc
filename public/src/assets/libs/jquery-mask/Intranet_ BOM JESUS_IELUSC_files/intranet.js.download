@@ -1,0 +1,427 @@
+/**
+ * @package intranet.js
+ * @author Gianluca Pettenon <gianluca.pettenon@ielusc.br>
+ */
+
+const App = {
+
+    Init: function() {
+
+        $(function() {
+
+            $('body').tooltip({ selector: '[rel="bj-tooltip"]', trigger: 'hover' });
+
+            $("#main-wrapper").AdminSettings({
+                Theme: false,
+                Layout: 'horizontal',
+                LogoBg: 'skin2',
+                NavbarBg: 'skin1',
+                SidebarType: 'full',
+                SidebarColor: 'skin6',
+                SidebarPosition: true,
+                HeaderPosition: false,
+                BoxedLayout: true,
+            });
+
+            $.blockUI.defaults.message = "<i class='fas fa-spin fa-sync text-white'></i>";
+            $.blockUI.defaults.css = {
+                padding: 0,
+                margin: 0,
+                width: '30%',
+                top: '40%',
+                left: '35%',
+                textAlign: 'center',
+                color: '#fff',
+                border: '',
+                backgroundColor: '',
+                cursor: 'wait'
+            };
+
+            var $block_message = $('#block_message');
+
+            $.fn.select2.defaults.set("theme", "bootstrap4");
+
+        })
+
+        $('input[type="text"]').prop('autocomplete', 'off');
+
+    }
+}
+
+const Cookies = {
+
+    Set: function(name, value) {
+        return $.cookie(name, value);
+    },
+
+    Get: function(name) {
+
+        if (name) {
+            return $.cookie(name);
+        }
+
+        return $.cookie();
+    },
+
+    Delete: function(name) {
+        if (name) {
+            return $.removeCookie(name);
+        }
+
+        return $.removeCookie(name);
+    }
+
+}
+
+const Fill = {
+
+    Select: function(render, data, optionDefault = true) {
+
+        var options = [];
+
+        if (optionDefault) {
+            options.push($('<option/>').val(null).text('Selecione'));
+        }
+
+        for (var i in data) {
+            options.push($('<option/>').val(data[i].ID).text(data[i].NOME));
+        }
+
+        render.html(options);
+
+    },
+
+}
+
+const Message = {
+
+    Toast: function(data) {
+
+        if (data.message) {
+
+            switch (data.class) {
+
+                case 'success':
+                    toastr.success(data.message, { "showMethod": "slideDown", "hideMethod": "slideDown", timeOut: 2500 });
+                    break;
+
+                case 'warning':
+                    toastr.warning(data.message, { "showMethod": "slideDown", "hideMethod": "slideDown", timeOut: 2500 });
+                    break;
+
+                case 'info':
+                    toastr.info(data.message, { "showMethod": "slideDown", "hideMethod": "slideDown", timeOut: 2500 });
+                    break;
+
+                case 'danger':
+                    toastr.error(data.message, { "showMethod": "slideDown", "hideMethod": "slideDown", timeOut: 2500 });
+                    break;
+
+                default:
+                    toastr.error(data.message, { "showMethod": "slideDown", "hideMethod": "slideDown", timeOut: 2500 });
+                    break;
+
+            }
+
+        }
+
+    },
+}
+
+const AutoComplete = {
+
+    Create: function(div, el) {
+        $.widget("custom.combobox", {
+            _create: function() {
+                this.wrapper = $("<div/>")
+                    .insertAfter(this.element);
+                this._createAutocomplete();
+            },
+
+            _createAutocomplete: function() {
+                var selected = this.element.children(":selected"),
+                    value = selected.val() ? selected.text() : "";
+
+                this.input = $("<input/>")
+                    .appendTo(this.wrapper)
+                    .val(value)
+                    .attr("type", "text")
+                    .autocomplete({
+                        delay: 0,
+                        minLength: 0,
+                        appendTo: div,
+                        source: $.proxy(this, "_source")
+                    });
+
+                this._on(this.input, {
+                    autocompleteselect: function(event, ui) {
+                        ui.item.option.selected = true;
+                        this._trigger("select", event, {
+                            item: ui.item.option
+                        });
+
+                        this.element.val(ui.item.option.value).trigger("change");
+                    },
+
+                    autocompletechange: "_removeIfInvalid"
+                });
+            },
+
+            _source: function(request, response) {
+                var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                response(this.element.children("option").map(function() {
+                    var text = $(this).text();
+                    if (this.value && (!request.term || matcher.test(text)))
+                        return {
+                            label: text,
+                            value: text,
+                            option: this
+                        };
+                }));
+            },
+
+            _removeIfInvalid: function(event, ui) {
+                if (ui.item) {
+                    return;
+                }
+
+                var value = this.input.val(),
+                    valueLowerCase = value.toLowerCase(),
+                    valid = false;
+                this.element.children("option").each(function() {
+                    if ($(this).text().toLowerCase() === valueLowerCase) {
+                        this.selected = valid = true;
+                        return false;
+                    }
+                });
+
+                if (valid) {
+                    return;
+                }
+
+                this.input.val("");
+                this.element.val("").trigger("change");
+                this._delay(function() {}, 2500);
+                this.input.autocomplete("instance").term = "";
+            },
+
+            _destroy: function() {
+                thiswrapper.remove();
+            }
+        });
+
+        $(el).combobox();
+    }
+
+}
+
+const Validate = {
+
+    Mail: function(mail) {
+        return new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i).test(mail);
+    },
+
+    onlyLetters: function(value) {
+        return /[A-z][ ][A-z]/.test(value);
+    },
+
+    Date: function(date) {
+
+        var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
+        var dtArray = date.match(rxDatePattern);
+
+        if (dtArray == null)
+            return false;
+
+        dtDay = dtArray[1];
+        dtMonth = dtArray[3];
+        dtYear = dtArray[5];
+
+        if (dtMonth < 1 || dtMonth > 12)
+            return false;
+        else if (dtDay < 1 || dtDay > 31)
+            return false;
+        else if ((dtMonth == 4 || dtMonth == 6 || dtMonth == 9 || dtMonth == 11) && dtDay == 31)
+            return false;
+        else if (dtMonth == 2) {
+            var isleap = (dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0));
+            if (dtDay > 29 || (dtDay == 29 && !isleap))
+                return false;
+        }
+
+        return true;
+    },
+
+    InsertRM: function(data) {
+
+        var RETORNO = 0;
+        var ERRO = "";
+
+        if (data[0]) {
+            if (!data[0].faultstring) {
+                var retorno = data[0].split(";");
+                if (retorno.length > 1) {
+                    var codigo = parseInt(retorno[1]);
+                    if (!isNaN(codigo)) {
+                        RETORNO = codigo;
+                        Message.Toast({ 'message': 'Registro atualizado com sucesso.', 'class': 'success' });
+                    } else {
+                        ERRO = data[0];
+                    }
+                } else {
+                    console.log(data[0]);
+                    if (data[0].split("=======================================").length > 1) {
+                        ERRO = data[0].split("=======================================")[0];
+                    } else {
+                        ERRO = data[0];
+                    }
+                }
+            } else {
+                ERRO = data[0].faultstring;
+            }
+        } else {
+            ERRO = data;
+        }
+
+        if (ERRO != "") {
+            Message.Toast({ 'message': ERRO });
+            return false;
+        }
+
+        return RETORNO;
+    },
+
+    DeleteRM: function(data) {
+        var ERRO = "";
+
+        if (data[0]) {
+            if (!data[0].faultstring) {
+                if (data[0].toLowerCase().indexOf("sucesso") != -1) {
+                    Message.Toast({ 'message': 'Registro excluido com sucesso.', 'class': 'success' });
+                } else {
+                    if (data[0].split("=======================================").length > 1) {
+                        console.log(data[0]);
+                        ERRO = data[0].split("=======================================")[0];
+                    } else {
+                        ERRO = data[0];
+                    }
+                }
+            } else {
+                ERRO = data[0].faultstring;
+            }
+        } else {
+            ERRO = data;
+        }
+
+        if (ERRO != "") {
+            Message.Toast({ 'message': ERRO });
+            return false;
+        }
+
+        return true;
+    },
+
+};
+
+const Serialize = {
+
+    Result: function(data) {
+
+        if (data[0] && data[0].faultstring != null) {
+            Message.Toast({ 'message': data[0].faultstring });
+        } else if (data.response) {
+            if (data.response.length) {
+                return data.response;
+            } else {
+                return [data.response];
+            }
+        } else {
+            return {};
+        }
+
+        return false;
+
+    },
+
+    Where: function(data) {
+
+        var filtros = [];
+
+        $.each(data, function(f, filtro) {
+
+            var fil = [];
+
+            $.each(filtro, function(i, item) {
+                fil.push("'" + item.split(',') + "'");
+            });
+
+            filtros.push(f + " IN (" + fil.join(',') + ") ");
+
+        });
+
+        return filtros.join('AND ');
+    },
+
+};
+
+
+const Language = {
+
+    DataTable: {
+        "decimal": "",
+        "emptyTable": "Nenhum registro encontrado.",
+        "info": "Mostrando _START_ at&eacute; _END_ de _TOTAL_ registros",
+        "infoEmpty": "Mostrando 0 at&eacute; 0 de 0 registros",
+        "infoFiltered": "(Filtrado de _MAX_ registros)",
+        "infoPostFix": "",
+        "thousands": ",",
+        "lengthMenu": "Mostrar _MENU_ registros",
+        "loadingRecords": "Carregando...",
+        "processing": "Processando...",
+        "search": "_INPUT_",
+        "searchPlaceholder": "Busca",
+        "zeroRecords": "Nenhum registro encontrado.",
+        "paginate": {
+            "first": "Primeiro",
+            "last": "&Uacute;ltimo",
+            "next": "Pr&oacute;ximo",
+            "previous": "Anterior"
+        },
+        "aria": {
+            "sortAscending": ": ative para organizar a coluna em ordem ascendente",
+            "sortDescending": ": ative para organizar a coluna em ordem descendente"
+        },
+        "buttons": {
+            "pageLength": "Registros",
+            "colvis": "Colunas",
+            "colvisRestore": "Restaurar"
+        }
+    },
+
+    HighCharts: {
+        months: ['Janeiro', 'Fevereiro', 'Mar&ccedil;o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        shortMonths: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+        weekdays: ['Domingo', 'Segunda', 'Ter&ccedil;a', 'Quarta', 'Quinta', 'Sexta', 'S&ccedil;bado'],
+        loading: ['Atualizando...'],
+        contextButtonTitle: 'Exportar gr&aacute;fico',
+        decimalPoint: ',',
+        thousandsSep: '.',
+        downloadJPEG: 'Exportar para JPEG',
+        downloadPDF: 'Exportar para PDF',
+        downloadPNG: 'Exportar para PNG',
+        downloadSVG: 'Exportar para SVG',
+        downloadXLS: 'Exportar para XLS',
+        downloadCSV: 'Exportar para CSV',
+        printChart: 'Imprimir gr&aacute;fico',
+        viewFullscreen: 'Visualizar em tela cheia',
+        exitFullscreen: 'Sair da tela cheia',
+        rangeSelectorFrom: 'De',
+        rangeSelectorTo: 'Para',
+        rangeSelectorZoom: 'Zoom',
+        resetZoom: 'Limpar Zoom',
+        resetZoomTitle: 'Voltar Zoom para n&iacute;vel 1:1',
+    },
+};
+
+
+App.Init();
