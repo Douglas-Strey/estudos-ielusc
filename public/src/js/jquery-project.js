@@ -22,21 +22,6 @@ function validateCheckbox() {
   return;
 }
 
-/* function catchData() {
-  var params = [
-    nome = ,
-    email = ,
-    senha = ,
-    endereco = ,
-    complemento = ,
-    cidade = ,
-    estado = ,
-    zip = ,
-  ];
-
-  return params;
-} */
-
 function setLocalStorage() {
   btnSetItem.addEventListener("click", () => {
     validateCheckbox();
