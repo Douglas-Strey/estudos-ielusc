@@ -21,15 +21,17 @@
 
 ## 🚀 Tecnologias
 
-Esse projeto foi desenvolvido com as seguintes tecnologias:
+Esse projeto foi desenvolvido com as seguintes tecnologias/libs:
 
 - HTML
 - CSS
-- Bootstrap
 - JS
-- Jquery
-- SweetAlert2
 - PHP
+- Bootstrap v5.0
+- Jquery
+- Jquery Mask Money
+- SweetAlert2
+
 
 ## 💻 Projeto
 
